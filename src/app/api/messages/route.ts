@@ -63,7 +63,7 @@ export async function POST(req: Request) {
     }
 
     const newMessage = await Message.create({
-      senderId: decoded.userId,
+      senderId: decoded.userId as string,
       receiverId,
       content,
     });

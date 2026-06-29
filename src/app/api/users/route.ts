@@ -21,7 +21,7 @@ export async function GET() {
     await dbConnect();
     
     // Fetch all users except the current user
-    const users = await User.find({ _id: { $ne: decoded.userId } }).select('-password');
+    const users = await User.find({ _id: { $ne: decoded.userId as string } }).select('-password');
     
     return NextResponse.json({ users });
   } catch (error) {
