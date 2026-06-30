@@ -20,7 +20,10 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const user = new User({ username, password });
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user = new User({ username, password: hashedPassword });
     await user.save();
 
     const token = await signToken({ userId: user._id.toString(), username: user.username });
